@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="CubeIQ" package="com.UncreativeGames.CubeIQ" version="1.0.0" company="UncreativeGames" />
+	<app main="Main" path="build" file="CubeIQ" />
+	
+	<window width="383" height="640" background="#FFFFFF" fps="30" />
+	<window orientation="portrait" />
+
+	<source path="src" />
+	<source path="../../AbStructed" />
+	
+	<haxelib name="ash" />
+	<haxelib name="openfl" />
+	
+	<assets path="res" exclude="*.xfc" include="*" />
+
+	
+</project>
+
