@@ -57,7 +57,8 @@ class GameSystem extends System {
 
         //Load first level
         for (GameNode in this.GameNodes) GameNode.GameState.Level = new Level();
-        this.loadLevel(0);
+        //this.loadLevel(0);
+        this.loadLevel(1);
     }
 
     public override function removeFromEngine(Engine:Engine):Void {
