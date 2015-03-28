@@ -2,7 +2,6 @@ package app.ui.screens;
 
 import ash.core.Engine;
 import ash.core.Entity;
-import app.entities.Tile;
 import app.components.GameState;
 
 import engine.ui.screens.Screen;
@@ -22,7 +21,6 @@ class GameScreen extends Screen {
 		this.Engine = new Engine();
 
 		this.startGame();
-
 	}
 
 	private function startGame() : Void {
@@ -32,9 +30,13 @@ class GameScreen extends Screen {
         this.Engine.addEntity( new Entity().add(new GameState()) ); //Core game-entity
 
 		//Initalize systems
-		this.Engine.addSystem(new GameSystem( this.Game.ResourceManager.getResource("res/levels/Levels.json") ), SystemPriorities.preUpdate);
+		var GameSystem: GameSystem = new GameSystem( this.Game.ResourceManager.getResource("res/levels/Levels.json") );
+		this.Engine.addSystem(GameSystem, SystemPriorities.preUpdate);
 		this.Engine.addSystem(new InputSystem(this), SystemPriorities.Update);
 		this.Engine.addSystem(new RenderSystem(this), SystemPriorities.Render);
+
+		GameSystem.loadLevel(1);
+		GameSystem.loadLevel(0);
 
 	}
 

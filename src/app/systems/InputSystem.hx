@@ -84,6 +84,7 @@ class InputSystem extends System {
 						case Right: Position.X += this.getClearSpace(Position.X, Position.Y, Direction, GameState.Level);
 						case Left: Position.X -= this.getClearSpace(Position.X, Position.Y, Direction, GameState.Level);
 					}
+
 				}
 
 				//Hacky way to allow between-player-collision

@@ -3,12 +3,16 @@ package app.systems;
 import ash.core.System;
 import ash.core.NodeList;
 import ash.core.Engine;
+import ash.core.Entity;
+import ash.tools.ComponentPool;
 
 import haxe.format.JsonParser;
 import engine.io.resources.Text;
 
 import app.nodes.GameNode;
 import app.nodes.TileNode;
+import app.components.Tile;
+import app.nodes.RenderNode;
 import app.components.GameState;
 import app.core.Level;
 
@@ -16,6 +20,7 @@ class GameSystem extends System {
 
 	private var GameNodes: NodeList<GameNode>;
 	private var TileNodes: NodeList<TileNode>;
+	private var RenderNodes: NodeList<RenderNode>;
 	private var Levels: Dynamic;
 	private var Engine: Engine;
 
@@ -31,8 +36,6 @@ class GameSystem extends System {
 		for (GameNode in this.GameNodes) {
 			var GameState: GameState = GameNode.GameState;
 
-
-
 		}
 
 	}
@@ -40,25 +43,37 @@ class GameSystem extends System {
 
 	public function loadLevel(Id: Int) : Void {
 
-		//Destroy old tile-entities
-		this.TileNodes.removeAll();
-
 		//Load level with id 
 		for (GameNode in this.GameNodes) {
+
+			//Destroy all old tile-entities
+
+			var EntitiesToBeRemoved: Array<Entity> = new Array<Entity>();
+			for (TileNode in this.TileNodes) {
+				EntitiesToBeRemoved.push(TileNode.entity);
+
+			};
+
+			for (Entity in EntitiesToBeRemoved) {
+				trace("test");
+				Engine.removeEntity(Entity);
+			}
+
 			GameNode.GameState.Level.loadFromJson(this.Levels[Id], this.Engine);
+
 		}
+
 	}
 
 
 	public override function addToEngine(Engine:Engine):Void {
         this.GameNodes = Engine.getNodeList(GameNode);
         this.TileNodes = Engine.getNodeList(TileNode);
+        this.RenderNodes = Engine.getNodeList(RenderNode);
         this.Engine = Engine;
 
         //Load first level
         for (GameNode in this.GameNodes) GameNode.GameState.Level = new Level();
-        //this.loadLevel(0);
-        this.loadLevel(1);
     }
 
     public override function removeFromEngine(Engine:Engine):Void {

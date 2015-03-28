@@ -4,8 +4,9 @@
 	<meta title="CubeIQ" package="com.UncreativeGames.CubeIQ" version="1.0.0" company="UncreativeGames" />
 	<app main="Main" path="build" file="CubeIQ" />
 	
-	<window width="383" height="640" background="#FFFFFF" fps="30" />
-	<window orientation="portrait" />
+	<window background="#FFFFFF" fps="30" orientation="portrait" />
+
+	<window width="383" height="640" if="desktop"/>
 
 	<source path="src" />
 	<source path="../../AbStructed" />

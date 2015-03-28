@@ -9,6 +9,7 @@ class GameState {
 	public var AnimationProgress: Float;
 
 	public function new() {
+		this.Level = new Level();
 		this.AnimationValue = 1;
 		this.AnimationProgress = 0;
 	}

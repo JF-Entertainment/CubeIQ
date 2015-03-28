@@ -12,17 +12,13 @@ class App extends Game {
 		super.Load();
 
 
-		//Resource-Callback
-		this.ResourceManager.onLoad = function() {
-			this.setView(new GameScreen());
-		}
-
 		//Load resources
 		this.ResourceManager.addResource( new Text("res/levels/Levels.json"));
 		this.ResourceManager.addResource( new Image("res/images/tiles/background.png"));
 		this.ResourceManager.addResource( new Image("res/images/tiles/player.png"));
 		this.ResourceManager.addResource( new Image("res/images/tiles/finish.png"));
 
+		this.setView(new GameScreen());
 	}
 
 

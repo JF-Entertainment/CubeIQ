@@ -1,8 +1,7 @@
 package app.core;
 
 import ash.core.Engine;
-import app.entities.PlayerTile;
-import app.entities.FinishTile;
+import app.core.EntityCreator;
 
 class Level {
 
@@ -12,7 +11,8 @@ class Level {
 	public var Name: String;
 
 	public function new() {
-
+		this.TileWidth = 0;
+		this.TileHeight = 0;
 	}
 
 	public function loadFromJson(Json: Dynamic, Engine: Engine) : Void {
@@ -22,6 +22,8 @@ class Level {
 		this.TileHeight = Json.Height;
 
 		this.Name = Json.Name;
+
+		var EntityCreator: EntityCreator = new EntityCreator(Engine);
 
 		//Create tiles
 		var Y: Int = 0,
@@ -35,7 +37,7 @@ class Level {
 				var ArrayPosition: Int = Y * this.TileWidth + X;
 
 				//Add tile to engine
-				this.addTile(Json.Tiles[ArrayPosition], X, Y, Engine);
+				this.addTile(Json.Tiles[ArrayPosition], X, Y, EntityCreator);
 
 				X++;
 			}
@@ -45,14 +47,14 @@ class Level {
 	}
 
 
-	private function addTile(Id: Int, X: Int, Y: Int, Engine:Engine) : Void {
+	private function addTile(Id: Int, X: Int, Y: Int, EntityCreator: EntityCreator) : Void {
 
 		switch Id {
 			case 1:
-				Engine.addEntity(new PlayerTile(X, Y));
+				EntityCreator.createPlayerTile(X, Y);
 
 			case 9:
-				Engine.addEntity(new FinishTile(X, Y));
+				EntityCreator.createFinishTile(X, Y);
 
 		}
 
